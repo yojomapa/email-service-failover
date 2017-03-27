@@ -15,7 +15,8 @@ import java.nio.file.Paths;
 import java.util.Base64;
 
 /**
- * Represents an abstraction over providers
+ * Represents an abstraction over providers.
+ * This enables the Strategy Pattern over different email providers.
  *
  * Created by yojomapa on 26/03/17.
  */
