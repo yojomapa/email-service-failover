@@ -1,7 +1,7 @@
 package com.yojomapa.controller;
 
 import com.yojomapa.dto.EmailDTO;
-import com.yojomapa.provider.ProviderManager;
+import com.yojomapa.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,14 +23,15 @@ public class EmailController {
 
   public static final String EMAIL_SENT_WITH_SUCCESS = "Email Sent with success";
   public static final String WE_HAD_A_PROBLEM = "We had a problem sending you email. Please try again later.";
+
   @Autowired
-  private ProviderManager providerManager;
+  private EmailService emailService;
 
   @RequestMapping(value = "/send", method = RequestMethod.POST,
           consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public ResponseEntity<String> sendEmail(@RequestBody @Validated EmailDTO emailDTO) {
     log.info("Sending Email", emailDTO);
-    boolean success = providerManager.send(emailDTO);
+    boolean success = emailService.sendEmail(emailDTO);
 
     String response = success? EMAIL_SENT_WITH_SUCCESS : WE_HAD_A_PROBLEM;
     if (success) {
