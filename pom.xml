@@ -54,7 +54,6 @@
             <version>1.4.0</version>
         </dependency>
 
-
         <!-- Email Providers Clients -->
 
         <!-- Sendgrid Client -->
@@ -76,6 +75,21 @@
             <groupId>com.mandrillapp.wrapper.lutung</groupId>
             <artifactId>lutung</artifactId>
             <version>0.0.7</version>
+        </dependency>
+
+        <!-- Swagger Dependencies -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.5.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.5.0</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Test Modules -->
