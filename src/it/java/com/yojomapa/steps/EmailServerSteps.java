@@ -73,5 +73,10 @@ public class EmailServerSteps implements En {
     Then("^the response status is (\\d+)$", (Integer statusCode) -> {
       Assert.assertEquals(statusCode, responseStatus);
     });
+
+    Then("^the response status is different than (\\d+)$", (Integer statusCode) -> {
+      Assert.assertNotEquals(statusCode, responseStatus);
+    });
+
   }
 }
