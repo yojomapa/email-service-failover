@@ -60,8 +60,10 @@ public class MailGunProviderStrategy extends EmailProviderStrategy {
   }
 
   private MultipartBuilder addAttachments(MultipartBuilder builder, List<AttachmentDTO> attachments) {
-    attachments.forEach(
-            attachDTO -> builder.attachment(attachDTO.getContentBase64(), attachDTO.getFileName()));
+    if (attachments != null && attachments.size() > 0) {
+      attachments.forEach(
+              attachDTO -> builder.attachment(attachDTO.getContentBase64(), attachDTO.getFileName()));
+    }
     return builder;
   }
 }
