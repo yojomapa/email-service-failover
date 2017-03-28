@@ -1,18 +1,7 @@
 package com.yojomapa.provider.strategy;
 
-import com.yojomapa.dto.AttachmentDTO;
 import com.yojomapa.dto.EmailDTO;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Base64;
 
 /**
  * Represents an abstraction over providers.
@@ -23,10 +12,13 @@ import java.util.Base64;
 @Data
 public abstract class EmailProviderStrategy {
 
-  protected String apiKey;
+  public EmailProviderStrategy() {
+    init();
+  }
 
-  @Value("${email.domain}")
-  protected String domain;
+  protected String fromEmail;
+
+  protected String fromName;
 
   /**
    * Excecutes the required initialization of the provider API

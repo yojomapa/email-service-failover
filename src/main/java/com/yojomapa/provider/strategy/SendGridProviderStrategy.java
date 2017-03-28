@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 @Order(value = 2)
 public class SendGridProviderStrategy extends EmailProviderStrategy {
 
+  private String sendgridDomain;
+
+  private String sendgridApiKey;
+
   @Override
   public void init() {
 

@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 @Order(value = 3)
 public class MandrillProviderStrategy extends EmailProviderStrategy {
 
+  private String mandrillDomain;
+
+  private String mandrillApiKey;
+
   @Override
   public void init() {
 

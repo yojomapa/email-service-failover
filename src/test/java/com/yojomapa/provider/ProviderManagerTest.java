@@ -1,15 +1,8 @@
 package com.yojomapa.provider;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.yojomapa.provider.strategy.EmailProviderStrategy;
+import com.yojomapa.bootstrap.ApplicationStart;
+import com.yojomapa.dto.EmailDTO;
+import com.yojomapa.provider.strategy.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,17 +12,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.yojomapa.bootstrap.ApplicationStart;
-import com.yojomapa.dto.EmailDTO;
-import com.yojomapa.provider.strategy.MailGunProviderStrategy;
-import com.yojomapa.provider.strategy.MandrillProviderStrategy;
-import com.yojomapa.provider.strategy.SendGridProviderStrategy;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * Created by yojomapa on 26/03/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = ApplicationStart.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(classes = ApplicationStart.class, webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class ProviderManagerTest {
 
