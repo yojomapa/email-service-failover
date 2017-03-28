@@ -1,7 +1,6 @@
 package com.yojomapa.dto;
 
 import lombok.Data;
-import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -20,10 +19,8 @@ public class EmailDTO {
   @NotNull
   private final List<EmailAddressDTO> to = new ArrayList<>();
 
-  @Getter(lazy = true)
   private final List<EmailAddressDTO> cc = new ArrayList<>();
 
-  @Getter(lazy = true)
   private final List<EmailAddressDTO> bcc = new ArrayList<>();
 
   private String subject = NO_SUBJECT;
