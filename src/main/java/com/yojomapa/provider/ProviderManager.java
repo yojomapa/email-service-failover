@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Is responsible for managing the failover and switch between different configured providers
@@ -17,8 +18,6 @@ import java.util.List;
 @Component
 @Slf4j
 public class ProviderManager {
-
-  public static final String OK_STATUS = "200";
 
   @Getter
   @Setter
@@ -45,14 +44,20 @@ public class ProviderManager {
     return success;
   }
 
+  /**
+   * Tries to send the Email
+   * @param emailDTO
+   * @param emailProviderStrategy
+   * @return
+   */
   private boolean trySend(EmailDTO emailDTO, EmailProviderStrategy emailProviderStrategy) {
 
     String responseStatus = null;
 
-    for (int i = 0; i < properties.getRetryTimes() && !OK_STATUS.equals(responseStatus); i++) {
+    for (int i = 0; i < properties.getRetryTimes() && !matchOkResponse(responseStatus); i++) {
       responseStatus = emailProviderStrategy.send(emailDTO);
 
-      if (OK_STATUS.equals(responseStatus)) break;
+      if (matchOkResponse(responseStatus)) break;
 
       try {
         Thread.sleep(properties.getRetryDuration());
@@ -61,7 +66,20 @@ public class ProviderManager {
       }
     }
 
-    return OK_STATUS.equals(responseStatus);
+    return matchOkResponse(responseStatus);
+  }
+
+  /**
+   * Match the response with any of the HTTP Codes 2xx
+   * @param responseStatus
+   * @return True if the code is of type 2xx, false otherwise
+   */
+  private boolean matchOkResponse(String responseStatus) {
+    if (responseStatus != null) {
+      return Pattern.matches("2..", responseStatus);
+    } else {
+      return false;
+    }
   }
 
 

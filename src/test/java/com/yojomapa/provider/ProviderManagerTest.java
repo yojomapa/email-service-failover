@@ -71,7 +71,7 @@ public class ProviderManagerTest {
   @Test
   public void TestSwitchOverProviders() throws Exception {
     when(mailGunProvider.send(any(EmailDTO.class))).thenReturn("401"); // mailgun fails
-    when(sendGridProvider.send(any(EmailDTO.class))).thenReturn("200"); // should try with sendgrid
+    when(sendGridProvider.send(any(EmailDTO.class))).thenReturn("202"); // should try with sendgrid
 
     boolean success = providerManager.send(emailDTOMock);
 

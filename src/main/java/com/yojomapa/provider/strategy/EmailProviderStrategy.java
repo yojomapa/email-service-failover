@@ -12,6 +12,11 @@ import lombok.Data;
 @Data
 public abstract class EmailProviderStrategy {
 
+  public static final String EMAIL_SENT_WITH_STATUS = "Email sent with status %s";
+  public static final String SENDING_EMAIL_WITH_ATTACHMENTS = "Sending Email with attachments";
+  public static final String SENDING_EMAIL_WITHOUT_ATTACHMENTS = "Sending Email without attachments";
+  public static final String SENDING_EMAIL_USING = "Sending Email using %s";
+
   public EmailProviderStrategy() {
     init();
   }

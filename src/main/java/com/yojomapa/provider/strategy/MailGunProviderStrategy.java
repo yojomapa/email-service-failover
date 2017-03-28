@@ -2,6 +2,7 @@ package com.yojomapa.provider.strategy;
 
 import com.yojomapa.dto.AttachmentDTO;
 import com.yojomapa.dto.EmailDTO;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import net.sargue.mailgun.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,9 +18,11 @@ import static java.lang.String.format;
  */
 @Component
 @Slf4j
-@Order(value = 1)
+@Data
+@Order(value = 2)
 @ConfigurationProperties(prefix = "email.provider")
 public class MailGunProviderStrategy extends EmailProviderStrategy {
+
 
   private String mailgunDomain;
 
@@ -48,6 +51,8 @@ public class MailGunProviderStrategy extends EmailProviderStrategy {
               .from(super.getFromName(), super.getFromEmail());
     }
 
+    log.info(format(SENDING_EMAIL_USING, "MailGun"));
+
     MailBuilder mailBuilder = Mail.using(configuration);
     emailDTO.getTo().forEach(emailAddressDTO -> mailBuilder.to(emailAddressDTO.getName(), emailAddressDTO.getEmail()));
     emailDTO.getCc().forEach(emailAddressDTO -> mailBuilder.cc(emailAddressDTO.getName(), emailAddressDTO.getEmail()));
@@ -56,21 +61,21 @@ public class MailGunProviderStrategy extends EmailProviderStrategy {
     Response response = null;
 
     if (emailDTO.getAttachments() != null && emailDTO.getAttachments().size() > 0) {
-      log.info("Sending Email with attachments");
+      log.info(SENDING_EMAIL_WITH_ATTACHMENTS);
       response = addAttachments(mailBuilder.subject(emailDTO.getSubject())
               .text(emailDTO.getBody()).multipart(),  emailDTO.getAttachments())
               .build()
               .send();
 
     } else {
-      log.info("Sending Email without attachments");
+      log.info(SENDING_EMAIL_WITHOUT_ATTACHMENTS);
       response = mailBuilder.subject(emailDTO.getSubject())
               .text(emailDTO.getBody())
               .build()
               .send();
     }
 
-    log.info(format("Email sent with status %s to MainGun ", response.responseCode()));
+    log.info(format(EMAIL_SENT_WITH_STATUS, response.responseCode()));
     return String.valueOf(response.responseCode());
   }
 
